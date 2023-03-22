@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Join Us</title>
+	<script type="text/javascript"  src="static/js/register.js"></script>
+
+	<script type="text/javascript" src="static/js/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="static/css/style.css">
+		<script type="text/javascript">
+		$(document).ready(function (){
+
+	
+	$("#submit").click(function () {
+			let form_data = validate_form();
+			if(form_data){
+				$.ajax({
+					url:"register.php",
+					type:'POST',
+					data:JSON.stringify(form_data),
+					dataType: "json",
+				}).done(function (data){
+					if(data.includes('Error')){
+						console.log(data);
+						$("#div_error").css("display",'block');
+						$("#div_error").html(data);
+					}else{
+						console.log(data);
+						location.href = 'http://localhost/WebProject/login.php';
+					}
+				})
+			}
+	})
+	});
+
+	</script>
+	
+
+</head>
+<body>
+	<form  oninput= "clear_error()" onsubmit = 'return false' name = 'form'>
+		<header>
+			<div class="logo">
+				<img src="static/images/logo-64x64.png" alt='Argon'>
+				<h1>Argon</h1>
+			</div>
+		</header>		
+		<p> <b>Join our</b> community today and never miss out on the latest updates.</p>
+		</div>
+		<div id='div_error'>
+		</div>
+
+		<label for="username">Username:</label>
+		<input class='input_focus' type="text" id="username" name="username">
+		<span id='error_3'></span>
+
+		<label for="email">Email:</label>
+		<input class='input_focus'type="text" id="email" name="email">
+		<span id='error_4'></span>
+		
+		<label for="password">Password:</label>
+		<input class='input_focus' type="password" id="password" name="password">
+		<span id='error_5'></span>
+
+		<label for="confirm_password">Confirm Password:</label>
+		<input class='input_focus' type="password" id="confirm_password" name="confirm_password">
+		<span id='error_6'></span>
+		<input type="submit" value="Register" id='submit'>
+		<div style="margin-top: 8px;text-align: center;">
+			Already Joined? <a href="login.html" style="text-decoration: none;"> <small>Log in</small></a>
+		</div>
+	
+	</form>
+	
+</body>
+</html>
